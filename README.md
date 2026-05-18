@@ -50,36 +50,83 @@ npm start
 
 ## Connect to an MCP client
 
-### Claude Desktop / Claude Code
+The server is packaged as an executable npm `bin`, so any MCP-aware AI client can launch it. Pick whichever integration path fits your environment.
 
-Add the server to your client's MCP configuration (e.g. `claude_desktop_config.json`):
+### Option A — installed binary (recommended)
+
+Build a tarball and install it globally (no npm publish needed):
+
+```bash
+npm install      # one time
+npm run build    # produces dist/index.js
+npm pack         # produces pexels-mcp-1.0.0.tgz
+
+npm install -g ./pexels-mcp-1.0.0.tgz
+which pexels-mcp # confirm it is on PATH
+```
+
+Then point your MCP client at the binary and pass the API key via `env`:
+
+```json
+{
+  "mcpServers": {
+    "pexels": {
+      "command": "pexels-mcp",
+      "env": { "PEXELS_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+This config works as-is in **Claude Desktop** (`claude_desktop_config.json`), **Claude Code** (`~/.claude.json` `mcpServers` block), **Cursor**, and any other MCP client that follows the standard config shape.
+
+### Option B — `npx` from a local tarball
+
+If you do not want a global install:
+
+```json
+{
+  "mcpServers": {
+    "pexels": {
+      "command": "npx",
+      "args": ["-y", "/absolute/path/to/pexels-mcp-1.0.0.tgz"],
+      "env": { "PEXELS_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+### Option C — run from the source checkout
+
+For development, point at the built file directly:
 
 ```json
 {
   "mcpServers": {
     "pexels": {
       "command": "node",
-      "args": [
-        "--env-file=/absolute/path/to/pexels-mcp/.env",
-        "/absolute/path/to/pexels-mcp/dist/index.js"
-      ]
+      "args": ["/absolute/path/to/pexels-mcp/dist/index.js"],
+      "env": { "PEXELS_API_KEY": "your_key_here" }
     }
   }
 }
 ```
 
-After restarting the client, the nine `pexels_*` tools become available.
+After updating the config, restart the client and the nine `pexels_*` tools become available.
 
 ### Manual smoke test over stdio
 
 ```bash
+export PEXELS_API_KEY=your_key_here
 printf '%s\n%s\n' \
   '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"smoke","version":"0"}}}' \
   '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \
-  | node --env-file=.env dist/index.js
+  | pexels-mcp
 ```
 
 You should see the `serverInfo` reply followed by a `tools/list` reply containing all nine tools.
+
+Use `node dist/index.js` instead of `pexels-mcp` if you have not installed the binary globally.
 
 ## Development
 
