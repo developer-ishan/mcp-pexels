@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [1.0.2] — 2026-05-18
+
 ### Added
 
 - MCPB (Model Context Protocol Bundle) packaging — `manifest.json` at the repo root and `npm run pack:mcpb` produces a one-click-installable `.mcpb` for Claude Desktop and Smithery. The release workflow attaches the bundle to every GitHub release.
+- MCP Registry metadata — `server.json` at the repo root and `mcpName: io.github.developer-ishan/pexels` in `package.json` so the package can be published to the official [MCP Registry](https://registry.modelcontextprotocol.io).
 
 ### Changed
 
@@ -32,5 +35,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - [`smithery.yaml`](./smithery.yaml) for Smithery marketplace auto-listing.
 - [`llms.txt`](./llms.txt) for LLM-friendly repo discovery.
 
-[Unreleased]: https://github.com/developer-ishan/mcp-pexels/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/developer-ishan/mcp-pexels/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/developer-ishan/mcp-pexels/compare/v1.0.0...v1.0.2
 [1.0.0]: https://github.com/developer-ishan/mcp-pexels/releases/tag/v1.0.0

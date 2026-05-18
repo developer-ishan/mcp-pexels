@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.developer-ishan/pexels",
+  "description": "Pexels MCP server — search and fetch free stock photos, videos, and curated collections from Pexels inside Claude Desktop, Claude Code, Cursor, Cline, and other MCP clients.",
+  "repository": {
+    "url": "https://github.com/developer-ishan/mcp-pexels",
+    "source": "github"
+  },
+  "version": "1.0.2",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "mcp-pexels",
+      "version": "1.0.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "PEXELS_API_KEY",
+          "description": "Pexels API key. Get one for free at https://www.pexels.com/api/. Free tier: 200 req/hour, 20,000 req/month.",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
