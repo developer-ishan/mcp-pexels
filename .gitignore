@@ -31,4 +31,7 @@ Thumbs.db
 # Coverage
 coverage/
 .nyc_output/
-.claude/settings.local.json
+
+# Claude
+.claude/
+CLAUDE.md
