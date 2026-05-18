@@ -1,6 +1,6 @@
 # Tool Reference
 
-Detailed documentation for every MCP tool exposed by `pexels-mcp`. Each tool wraps a single Pexels API endpoint.
+Detailed documentation for every MCP tool exposed by `mcp-pexels`. Each tool wraps a single Pexels API endpoint.
 
 Every tool response includes a top-level `_rateLimit` field:
 

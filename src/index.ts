@@ -22,7 +22,7 @@ const tools = allTools(client);
 const toolsByName = new Map(tools.map((t) => [t.name, t]));
 
 const server = new Server(
-  { name: "pexels-mcp", version: "1.0.0" },
+  { name: "mcp-pexels", version: "1.0.0" },
   { capabilities: { tools: {} } },
 );
 

@@ -1,6 +1,11 @@
-# pexels-mcp
+# mcp-pexels
 
-A [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the [Pexels API](https://www.pexels.com/api/) — free stock photos, videos, and curated collections — as MCP tools that any compatible client (Claude Desktop, Claude Code, Cursor, etc.) can call.
+[![npm version](https://img.shields.io/npm/v/mcp-pexels.svg)](https://www.npmjs.com/package/mcp-pexels)
+[![CI](https://github.com/developer-ishan/mcp-pexels/actions/workflows/ci.yml/badge.svg)](https://github.com/developer-ishan/mcp-pexels/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Node ≥20](https://img.shields.io/badge/node-%E2%89%A520-brightgreen.svg)](#requirements)
+
+A [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the [Pexels API](https://www.pexels.com/api/) — free stock photos, videos, and curated collections — as MCP tools that any compatible AI client (Claude Desktop, Claude Code, Cursor, etc.) can call.
 
 > Photos & videos provided by [Pexels](https://www.pexels.com).
 
@@ -29,90 +34,69 @@ See [`docs/tools/`](docs/tools/) for per-tool parameter tables and example paylo
 - Node.js **≥ 20** (uses native `fetch` and `--env-file`)
 - A free Pexels API key — [request one here](https://www.pexels.com/api/)
 
-## Quickstart
-
-```bash
-# Install
-npm install
-
-# Add your API key
-echo "PEXELS_API_KEY=your_key_here" > .env
-
-# Run the test suite (mocked, no network calls)
-npm test
-
-# Build to dist/
-npm run build
-
-# Run the server (stdio transport)
-npm start
-```
-
 ## Connect to an MCP client
 
-The server is packaged as an executable npm `bin`, so any MCP-aware AI client can launch it. Pick whichever integration path fits your environment.
+Once `mcp-pexels` is on npm, the simplest setup is `npx` directly from your MCP client's config — no install step required.
 
-### Option A — installed binary (recommended)
-
-Build a tarball and install it globally (no npm publish needed):
-
-```bash
-npm install      # one time
-npm run build    # produces dist/index.js
-npm pack         # produces pexels-mcp-1.0.0.tgz
-
-npm install -g ./pexels-mcp-1.0.0.tgz
-which pexels-mcp # confirm it is on PATH
-```
-
-Then point your MCP client at the binary and pass the API key via `env`:
-
-```json
-{
-  "mcpServers": {
-    "pexels": {
-      "command": "pexels-mcp",
-      "env": { "PEXELS_API_KEY": "your_key_here" }
-    }
-  }
-}
-```
-
-This config works as-is in **Claude Desktop** (`claude_desktop_config.json`), **Claude Code** (`~/.claude.json` `mcpServers` block), **Cursor**, and any other MCP client that follows the standard config shape.
-
-### Option B — `npx` from a local tarball
-
-If you do not want a global install:
+### Claude Desktop / Claude Code / Cursor
 
 ```json
 {
   "mcpServers": {
     "pexels": {
       "command": "npx",
-      "args": ["-y", "/absolute/path/to/pexels-mcp-1.0.0.tgz"],
+      "args": ["-y", "mcp-pexels"],
       "env": { "PEXELS_API_KEY": "your_key_here" }
     }
   }
 }
 ```
 
-### Option C — run from the source checkout
+- **Claude Desktop:** `claude_desktop_config.json` (`~/Library/Application Support/Claude/` on macOS, `%APPDATA%\Claude\` on Windows).
+- **Claude Code:** `~/.claude.json` `mcpServers` block, or run `claude mcp add pexels -- npx -y mcp-pexels`.
+- **Cursor:** `~/.cursor/mcp.json` (or per-project `.cursor/mcp.json`).
 
-For development, point at the built file directly:
+Restart the client and the nine `pexels_*` tools become available.
+
+### Alternative — global install
+
+```bash
+npm install -g mcp-pexels
+```
+
+Then:
+
+```json
+{
+  "mcpServers": {
+    "pexels": {
+      "command": "mcp-pexels",
+      "env": { "PEXELS_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+### Alternative — run from a source checkout
+
+```bash
+git clone https://github.com/developer-ishan/mcp-pexels.git
+cd mcp-pexels
+npm install
+npm run build
+```
 
 ```json
 {
   "mcpServers": {
     "pexels": {
       "command": "node",
-      "args": ["/absolute/path/to/pexels-mcp/dist/index.js"],
+      "args": ["/absolute/path/to/mcp-pexels/dist/index.js"],
       "env": { "PEXELS_API_KEY": "your_key_here" }
     }
   }
 }
 ```
-
-After updating the config, restart the client and the nine `pexels_*` tools become available.
 
 ### Manual smoke test over stdio
 
@@ -121,19 +105,22 @@ export PEXELS_API_KEY=your_key_here
 printf '%s\n%s\n' \
   '{"jsonrpc":"2.0","id":0,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"smoke","version":"0"}}}' \
   '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \
-  | pexels-mcp
+  | npx -y mcp-pexels
 ```
 
-You should see the `serverInfo` reply followed by a `tools/list` reply containing all nine tools.
-
-Use `node dist/index.js` instead of `pexels-mcp` if you have not installed the binary globally.
+Replace `npx -y mcp-pexels` with `mcp-pexels` (global install) or `node dist/index.js` (source checkout) depending on your setup. You should see the `serverInfo` reply followed by a `tools/list` reply containing all nine tools.
 
 ## Development
 
 ```bash
-npm run dev        # tsx watch (requires PEXELS_API_KEY in your env)
-npm run test:watch # vitest in watch mode
+npm install
+echo "PEXELS_API_KEY=your_key_here" > .env
+
+npm test           # 42 mocked vitest cases, no network
 npm run build      # tsc → dist/
+npm run dev        # tsx watch
+npm run test:watch # vitest in watch mode
+npm start          # node --env-file=.env dist/index.js
 ```
 
 ### Project layout
@@ -181,6 +168,14 @@ When you use Pexels content, please follow the [Pexels API guidelines](https://w
 - Show a prominent link to Pexels — e.g. *"Photos provided by Pexels"*.
 - Credit photographers/videographers when possible — e.g. *"Photo by John Doe on Pexels"*.
 
+## Releasing
+
+This repo uses a tag-driven release workflow (`.github/workflows/release.yml`):
+
+1. Bump the version: `npm version patch` (or `minor` / `major`) — creates a commit and tag.
+2. Push: `git push && git push --tags`.
+3. The workflow runs tests, builds, and publishes to npm using the `NPM_TOKEN` repository secret.
+
 ## License
 
-ISC
+[MIT](./LICENSE)
