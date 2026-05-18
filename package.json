@@ -1,6 +1,6 @@
 {
   "name": "mcp-pexels",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pexels MCP server — search and fetch free stock photos, videos, and curated collections from Pexels inside Claude Desktop, Claude Code, Cursor, Cline, and other Model Context Protocol clients.",
   "type": "module",
   "main": "dist/index.js",
