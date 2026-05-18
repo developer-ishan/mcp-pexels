@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Pexels API question
+    url: https://help.pexels.com/hc/en-us/categories/900001326143-API
+    about: Questions about the upstream Pexels API itself (rate limits, image rights, etc.) belong with Pexels support.
+  - name: Model Context Protocol question
+    url: https://modelcontextprotocol.io
+    about: Generic MCP questions are better answered in the MCP community.
+  - name: Security vulnerability
+    url: https://github.com/developer-ishan/mcp-pexels/security/advisories/new
+    about: Report security issues privately, not in public issues.

@@ -1,0 +1,20 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - pexelsApiKey
+    properties:
+      pexelsApiKey:
+        type: string
+        title: Pexels API Key
+        description: >-
+          API key for the Pexels API. Get one for free at
+          https://www.pexels.com/api/ — the free tier allows 200 requests
+          per hour and 20 000 requests per month.
+  commandFunction: |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "mcp-pexels"],
+      env: { PEXELS_API_KEY: config.pexelsApiKey }
+    })

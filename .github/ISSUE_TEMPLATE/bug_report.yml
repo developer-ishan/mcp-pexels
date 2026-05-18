@@ -1,0 +1,64 @@
+name: Bug report
+description: Something is broken in mcp-pexels.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug report. Please redact your Pexels API key from
+        any logs you paste.
+  - type: input
+    id: version
+    attributes:
+      label: mcp-pexels version
+      description: Output of `npm ls mcp-pexels` or whatever version you have installed.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+      placeholder: "v20.11.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: MCP client
+      options:
+        - Claude Desktop
+        - Claude Code
+        - Cursor
+        - Cline (VS Code)
+        - Continue.dev
+        - "@modelcontextprotocol/inspector"
+        - Other (please describe in the steps)
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: What did you do? What tool did you call with what inputs?
+      placeholder: |
+        1. Configured Claude Desktop with the standard `npx -y mcp-pexels` block.
+        2. Asked Claude to "search Pexels for sunset photos".
+        3. Got back an error: ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Paste the error message or response. Redact your API key.
+    validations:
+      required: true

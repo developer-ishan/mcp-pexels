@@ -1,0 +1,44 @@
+# mcp-pexels
+
+> A Model Context Protocol (MCP) server that wraps the Pexels API (free stock photos, videos, and curated collections) and exposes nine tools to any MCP-compatible AI client (Claude Desktop, Claude Code, Cursor, Cline, Continue).
+
+`mcp-pexels` is a TypeScript MCP server distributed on npm. It speaks the stdio transport, requires Node 20+, and authenticates to Pexels via a `PEXELS_API_KEY` environment variable. Every tool response includes a `_rateLimit` object so the calling agent can self-throttle against the Pexels free-tier quota (200 requests/hour, 20 000 requests/month).
+
+The recommended setup is to add the following block to your MCP client config; no install step is required because `npx` fetches the package on demand:
+
+```json
+{
+  "mcpServers": {
+    "pexels": {
+      "command": "npx",
+      "args": ["-y", "mcp-pexels"],
+      "env": { "PEXELS_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+## Docs
+
+- [README](https://github.com/developer-ishan/mcp-pexels/blob/main/README.md): Project overview, client setup snippets, FAQ, example prompts.
+- [Tool reference index](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/README.md): Links to every tool's full parameter table.
+- [pexels_search_photos](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_search_photos.md): Search photos by query with orientation / size / color / locale filters.
+- [pexels_curated_photos](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_curated_photos.md): Real-time curated photo feed.
+- [pexels_get_photo](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_get_photo.md): Fetch a single photo by id.
+- [pexels_search_videos](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_search_videos.md): Search videos by query with orientation / size / locale filters.
+- [pexels_popular_videos](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_popular_videos.md): Popular videos with width / height / duration filters.
+- [pexels_get_video](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_get_video.md): Fetch a single video by id.
+- [pexels_featured_collections](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_featured_collections.md): Pexels-curated featured collections.
+- [pexels_my_collections](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_my_collections.md): Collections owned by the authenticated user.
+- [pexels_collection_media](https://github.com/developer-ishan/mcp-pexels/blob/main/docs/tools/pexels_collection_media.md): Photos and videos inside a collection by id.
+
+## Source & releases
+
+- [GitHub repository](https://github.com/developer-ishan/mcp-pexels): Source, issues, contributing.
+- [npm package](https://www.npmjs.com/package/mcp-pexels): Latest published version.
+- [Changelog](https://github.com/developer-ishan/mcp-pexels/blob/main/CHANGELOG.md): Version history.
+
+## Optional
+
+- [Pexels API docs](https://www.pexels.com/api/documentation/): Upstream API reference.
+- [Model Context Protocol](https://modelcontextprotocol.io): MCP specification.
