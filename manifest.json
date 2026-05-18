@@ -1,0 +1,72 @@
+{
+  "manifest_version": "0.3",
+  "name": "mcp-pexels",
+  "display_name": "Pexels",
+  "version": "1.0.1",
+  "description": "Search and fetch free stock photos, videos, and curated collections from Pexels.",
+  "long_description": "A Model Context Protocol server that exposes the Pexels API as nine tools so any compatible AI client (Claude Desktop, Claude Code, Cursor, Cline, Continue) can search photos, search videos, list curated collections, and retrieve individual items by id. Every response includes the current rate-limit headers so agents can self-throttle against the Pexels free-tier quota (200 req/hour, 20 000 req/month).",
+  "author": {
+    "name": "developer-ishan",
+    "url": "https://github.com/developer-ishan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/developer-ishan/mcp-pexels.git"
+  },
+  "homepage": "https://github.com/developer-ishan/mcp-pexels",
+  "documentation": "https://github.com/developer-ishan/mcp-pexels/blob/main/README.md",
+  "support": "https://github.com/developer-ishan/mcp-pexels/issues",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "pexels",
+    "stock-photos",
+    "stock-videos",
+    "photos",
+    "videos",
+    "collections",
+    "claude",
+    "cursor",
+    "cline"
+  ],
+  "privacy_policies": [
+    "https://www.pexels.com/privacy-policy/"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "PEXELS_API_KEY": "${user_config.pexels_api_key}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "pexels_search_photos", "description": "Search Pexels photos by query with optional filters." },
+    { "name": "pexels_curated_photos", "description": "Fetch a real-time list of photos curated by the Pexels team." },
+    { "name": "pexels_get_photo", "description": "Retrieve a single Pexels photo by its id." },
+    { "name": "pexels_search_videos", "description": "Search Pexels videos by query with optional filters." },
+    { "name": "pexels_popular_videos", "description": "Fetch the current popular Pexels videos." },
+    { "name": "pexels_get_video", "description": "Retrieve a single Pexels video by its id." },
+    { "name": "pexels_featured_collections", "description": "List featured collections on Pexels." },
+    { "name": "pexels_my_collections", "description": "List the authenticated user's own Pexels collections." },
+    { "name": "pexels_collection_media", "description": "Retrieve photos and videos within a Pexels collection by id." }
+  ],
+  "user_config": {
+    "pexels_api_key": {
+      "type": "string",
+      "title": "Pexels API Key",
+      "description": "Get one for free at https://www.pexels.com/api/. The free tier allows 200 requests per hour and 20 000 requests per month.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  }
+}

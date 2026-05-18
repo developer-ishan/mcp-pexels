@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -8,6 +11,13 @@ import {
 import { PexelsClient } from "./http/client.js";
 import { PexelsApiError } from "./http/types.js";
 import { allTools } from "./tools/index.js";
+
+const pkg = JSON.parse(
+  readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "..", "package.json"),
+    "utf8",
+  ),
+) as { name: string; version: string };
 
 const apiKey = process.env.PEXELS_API_KEY;
 if (!apiKey) {
@@ -22,7 +32,7 @@ const tools = allTools(client);
 const toolsByName = new Map(tools.map((t) => [t.name, t]));
 
 const server = new Server(
-  { name: "mcp-pexels", version: "1.0.0" },
+  { name: pkg.name, version: pkg.version },
   { capabilities: { tools: {} } },
 );
 

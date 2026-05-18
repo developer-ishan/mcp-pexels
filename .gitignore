@@ -18,6 +18,8 @@ dist/
 build/
 *.tsbuildinfo
 *.tgz
+*.mcpb
+.mcpb-staging/
 
 # OS
 .DS_Store
