@@ -7,7 +7,25 @@
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server that exposes the [Pexels API](https://www.pexels.com/api/) — free stock photos, videos, and curated collections — as MCP tools that any compatible AI client (Claude Desktop, Claude Code, Cursor, etc.) can call.
 
+📦 **npm:** [mcp-pexels](https://www.npmjs.com/package/mcp-pexels) · 🏷 **Latest release:** [v1.0.0](https://github.com/developer-ishan/mcp-pexels/releases/tag/v1.0.0) · 💻 **Source:** [developer-ishan/mcp-pexels](https://github.com/developer-ishan/mcp-pexels)
+
 > Photos & videos provided by [Pexels](https://www.pexels.com).
+
+## Drop-in MCP client config
+
+```json
+{
+  "mcpServers": {
+    "pexels": {
+      "command": "npx",
+      "args": ["-y", "mcp-pexels"],
+      "env": { "PEXELS_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+Works in Claude Desktop, Claude Code, Cursor, and any other MCP-aware client. See [Connect to an MCP client](#connect-to-an-mcp-client) for client-specific config paths and alternative install methods.
 
 ## Capabilities
 
