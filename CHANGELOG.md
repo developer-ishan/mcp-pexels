@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Changed
+
+- Release workflow now publishes to the MCP Registry automatically using GitHub Actions OIDC (`mcp-publisher login github-oidc`). The workflow also syncs `server.json`'s version field from the git tag, so future releases only require bumping `package.json`.
+
 ## [1.0.2] — 2026-05-18
 
 ### Added
