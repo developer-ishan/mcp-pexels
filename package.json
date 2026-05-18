@@ -1,7 +1,7 @@
 {
   "name": "mcp-pexels",
   "version": "1.0.0",
-  "description": "Model Context Protocol server for the Pexels API (photos, videos, collections) — usable with Claude, Cursor, and any MCP client.",
+  "description": "Pexels MCP server — search and fetch free stock photos, videos, and curated collections from Pexels inside Claude Desktop, Claude Code, Cursor, Cline, and other Model Context Protocol clients.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -23,14 +23,25 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "model-context-protocol",
     "pexels",
+    "pexels-api",
+    "stock-photos",
+    "stock-videos",
     "photos",
     "videos",
-    "stock-photos",
     "claude",
+    "claude-desktop",
+    "claude-code",
+    "cursor",
+    "cline",
+    "anthropic",
     "ai",
-    "cursor"
+    "ai-tools",
+    "agent-tools",
+    "typescript",
+    "llm"
   ],
   "author": "developer-ishan",
   "license": "MIT",
