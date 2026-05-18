@@ -40,9 +40,24 @@ A one-stop guide for getting `mcp-pexels` listed across the major MCP discovery 
 
 ## 2. Smithery — `smithery.ai`
 
-**Where:** <https://smithery.ai/server/new>
+**Where:** <https://smithery.ai/new>
 
-**How:** Smithery auto-discovers this repo because [`smithery.yaml`](../smithery.yaml) is at the root. Submit the repo URL on the "New Server" page and Smithery will install + verify it automatically.
+**How:** For local stdio servers like this one, Smithery distributes a pre-built **MCPB bundle** that clients download and run locally. Two options:
+
+**Option A — submit via web (easiest):**
+
+1. Build the bundle locally: `npm run pack:mcpb` (produces `mcp-pexels.mcpb`).
+2. Go to <https://smithery.ai/new> and select the "Local (MCPB Bundle)" tab.
+3. Upload the `.mcpb` file. Smithery validates the manifest and lists the server.
+
+**Option B — Smithery CLI:**
+
+```bash
+npm install -g @smithery/cli
+smithery mcp publish ./mcp-pexels.mcpb -n developer-ishan/mcp-pexels
+```
+
+The legacy [`smithery.yaml`](../smithery.yaml) `commandFunction` block is kept as a fallback for older Smithery flows, but MCPB is the modern path.
 
 ## 3. mcp.so
 

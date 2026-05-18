@@ -94,7 +94,9 @@ All paths below use `npx -y mcp-pexels` — no global install required. Replace 
 
 ### Claude Desktop
 
-Edit `claude_desktop_config.json`:
+**Option 1 — one-click `.mcpb` install (recommended).** Download the latest `mcp-pexels-*.mcpb` from the [Releases page](https://github.com/developer-ishan/mcp-pexels/releases/latest), double-click the file, paste your Pexels API key when Claude Desktop prompts, and click Install.
+
+**Option 2 — manual JSON config.** Edit `claude_desktop_config.json`:
 
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -337,7 +339,7 @@ This repo uses a tag-driven release workflow (`.github/workflows/release.yml`):
 
 1. Bump the version: `npm version patch` (or `minor` / `major`) — creates a commit and tag.
 2. Push: `git push && git push --tags`.
-3. The workflow runs tests, builds, and publishes to npm with provenance using the `NPM_TOKEN` repository secret. A GitHub release with auto-generated notes is created automatically.
+3. The workflow runs tests, builds, publishes to npm with provenance using the `NPM_TOKEN` repository secret, builds the **`.mcpb` bundle** via `npm run pack:mcpb`, and creates a GitHub release with auto-generated notes that includes the bundle as a downloadable asset.
 
 See [`CHANGELOG.md`](./CHANGELOG.md) for version history.
 

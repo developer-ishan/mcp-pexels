@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Added
+
+- MCPB (Model Context Protocol Bundle) packaging — `manifest.json` at the repo root and `npm run pack:mcpb` produces a one-click-installable `.mcpb` for Claude Desktop and Smithery. The release workflow attaches the bundle to every GitHub release.
+
+### Changed
+
+- `serverInfo.version` is now read from `package.json` at startup instead of being hard-coded, so the MCPB bundle and npm package always report the same version.
+
 ## [1.0.0] — 2026-05-18
 
 ### Added
